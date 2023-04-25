@@ -9,6 +9,19 @@ definitions:
             variables:
               SONAR_HOST_URL: ${SONAR_HOST_URL} # Get the value from the repository/workspace variable.
               SONAR_TOKEN: ${SONAR_TOKEN} # Get the value from the repository/workspace variable. You shouldn't set secret in clear text here.
+              DEBUG: "true"
+    - step:
+        name: Check Quality Gate on SonarQube
+        max-time: 5 # value you should use depends on the analysis time for your project
+        script:
+          - pipe: sonarsource/sonarqube-quality-gate:1.1.0
+            variables:
+              SONAR_TOKEN: ${SONAR_TOKEN}
+    - step:
+        name: Deploy to Production
+        deployment: "Production"
+        script:
+          - echo "Good to deploy!"
   caches:
     sonar: ~/.sonar
 
