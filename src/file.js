@@ -5,6 +5,8 @@ j=0;
 k=0;
 l=0;
 var someClass = 1;
+aoewjofaiewf=2920;
+aleroaeroaoiaeroi20=23928989;
 
 var obj1 = new someClass;    // Noncompliant;
 
@@ -14,6 +16,7 @@ aorgoieoi=0;
 aoiio34io=0;
 aoweif23=0;
 aowiejfioaejw=9;
+aweoifj=29892;
 
 
 helloFromFeatureTestRemoveTwoBugs="what";
@@ -21,15 +24,6 @@ bugFrom101=0;
 
 bugFrom102a=0;
 bugFrom102b=0;
-
-bugFrom103a=0;
-bugFrom103b=0;
-bugFrom103c=0;
-
-bugFrom104a=0;
-bugFrom104b=0;
-bugFrom104c=0;
-bugFrom104d=0;
 
 let keyDownEvnt;
 keyDownEvnt = '';
