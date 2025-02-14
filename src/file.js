@@ -36,6 +36,101 @@ keyDownEvnt = '';
 
 k=19;
 
+// This file is intentionally designed to contain various code smells.
+// Do not use this in production. It's for demonstration with SonarQube.
+
+// 1. Inconsistent Naming:  Sometimes camelCase, sometimes snake_case
+function calculateTotalPrice(itemPrice, quantity) {
+  return itemPrice * quantity;
+}
+
+const TAX_RATE = 0.08; // Constant, but not consistently capitalized
+
+function apply_discount(totalPrice, discountPercent) { // Snake case
+  return totalPrice * (1 - discountPercent / 100);
+}
+
+// 2. Long Parameter List:  Too many arguments make the function hard to call/understand
+function createUser(firstName, lastName, email, phone, address, city, state, zip) {
+  // ...
+}
+
+// 3. Deep Nesting:  Difficult to read and follow the logic
+function processOrder(order) {
+  if (order.items.length > 0) {
+    for (let i = 0; i < order.items.length; i++) {
+      const item = order.items[i];
+      if (item.quantity > 0) {
+        if (item.price > 0) {
+          // ... lots of nested logic ...
+        } else {
+          // ...
+        }
+      }
+    }
+  }
+}
+
+// 4. Switch Statement Fallthrough:  Missing 'break' statements can lead to unexpected behavior
+function getItemType(itemCode) {
+  switch (itemCode) {
+    case "A":
+      return "Type A"; // Missing break! Will fall through to the next case
+    case "B":
+      return "Type B";
+    default:
+      return "Unknown";
+  }
+}
+
+// 5. Commented-out Code:  Clutters the code and makes it harder to read
+// function oldCalculation(x, y) {
+//   return x + y;
+// }
+
+// 6. Unhandled Promise Rejection:  No .catch() to handle potential errors
+async function fetchData() {
+  const response = await fetch('/api/data'); // What if the request fails?
+  return response.json();
+}
+
+// 7. Global Variables:  Can lead to unexpected side effects and make code harder to maintain
+let globalCounter = 0; // Avoid global variables whenever possible
+
+function incrementCounter() {
+  globalCounter++;
+}
+
+// 8. Hardcoded Credentials:  Security risk! Never store sensitive info directly in the code
+const DB_PASSWORD = "password123"; //  Extremely bad practice!
+
+// 9. Repeated String Literals:  Use constants to avoid typos and make it easier to change values
+function logMessage(username) {
+  console.log("User " + username + " logged in.");
+  console.log("Welcome, " + username + "!"); // Repeated string " logged in."
+}
+
+// 10. Inefficient Loop:  Avoid recalculating values inside the loop if they don't change
+function calculateSum(arr) {
+  const length = arr.length; // Calculate length outside the loop
+  let sum = 0;
+  for (let i = 0; i < length; i++) {  // Length is re-calculated every time.
+    sum += arr[i];
+  }
+  return sum;
+}
+
+
+// Example usage (to avoid "unused variable" warnings):
+calculateTotalPrice(10, 5);
+createUser("John", "Doe", "john.doe@example.com", "123-456-7890", "123 Main St", "Anytown", "CA", "91234");
+processOrder({ items: [{ quantity: 2, price: 15 }] });
+getItemType("A");
+fetchData();
+incrementCounter();
+logMessage("testuser");
+calculateSum([1,2,3,4,5]);
+
 const adventurer = {
   name: 'Alice',
   cat: {
@@ -265,7 +360,58 @@ aiwefoajwefoiajwe=293;
 aiwefoajwefoiajwe=293;
 aiwefoajwefoiajwe=293;
 aiwefoajwefoiajwe=293;
-aiwefoajwefoiajwe=293;
+// Demonstrates various vulnerabilities. DO NOT USE IN PRODUCTION!
+
+// 1. Cross-Site Scripting (XSS) - Reflected
+function displayMessage(userInput) {
+  document.getElementById("message").innerHTML = userInput; // Directly inserting user input
+}
+
+// 2. Cross-Site Scripting (XSS) - Stored
+// Imagine this data comes from a database:
+const storedMessage = "<img src=x onerror=alert(1)>"; // Malicious code stored
+
+document.getElementById("stored").innerHTML = storedMessage; // Vulnerable when displayed
+
+// 3. SQL Injection (Illustrative - requires a database)
+//  This is highly simplified.  Real SQL injection is more nuanced.
+const username = document.getElementById("username").value; // User input
+const query = "SELECT * FROM users WHERE username = '" + username + "'"; // Concatenation creates vulnerability
+
+// 4. Path Traversal
+const filename = document.getElementById("filename").value; // User input
+//  BAD:  fs.readFile("/path/to/files/" + filename,...); // User could provide "../../../etc/passwd"
+
+// 5. Denial of Service (DoS) - Regex
+function vulnerableRegex(input) {
+  const regex = /^(a+)+$/; // Catastrophic backtracking
+  return regex.test(input);
+}
+
+// 6. Insecure Random Number Generation
+function generateRandomId() {
+  return Math.random().toString(36).substring(2, 15); // Not cryptographically secure
+}
+
+// 7. Prototype Pollution
+Object.prototype.isAdmin = true; // Modifies all objects!
+
+// 8. Unhandled Promise Rejection
+async function fetchData() {
+  const response = await fetch('/api/data'); // What if the API is down? No.catch()
+  return response.json();
+}
+
+// 9. Server-Side Request Forgery (SSRF - Illustrative)
+const targetURL = document.getElementById("target").value; // User input
+//  BAD: fetch(targetURL); // User could provide "http://internal-server/admin"
+
+// 10. Exposure of Sensitive Information
+const apiKey = "YOUR_API_KEY"; // Never store API keys directly in code!
+
+// Example calls (for demonstration purposes only):
+// displayMessage("<script>alert('
+
 aiwefoajwefoiajwe=293;
 aiwefoajwefoiajwe=293;
 aiwefoajwefoiajwe=293;
