@@ -57,4 +57,3 @@ echo $a + (int)$b . PHP_EOL; // Output: 3
 
 // 9. Misleading Comments
 // This function adds two numbers
-function 
