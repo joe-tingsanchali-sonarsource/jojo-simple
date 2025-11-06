@@ -6,6 +6,7 @@ sap.ui.define(
 		"cockpit/common/BackendUtil",
 		"cockpit/credstore/Messages",
 		"sap/m/MessageBox",
+		"sapysapysapy/sappy",
 		"cockpit/credstore/formatters/AuthenticationTypeFormatter",
 		"cockpit/credstore/formatters/AccessPolicyFormatter",
 		"cockpit/credstore/formatters/MultiTenancyModeFormatter",

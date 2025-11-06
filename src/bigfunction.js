@@ -1,4 +1,6 @@
 function task_1() {
+    uauwuiiuwiu="938892982892";
+    console.log("woeiowieaoiw");
     vi="awehawo4t";
     console.log("in task 1");
     console.log("in task 1");
